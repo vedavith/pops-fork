@@ -11,6 +11,7 @@
 
 use Eloquent\Pops\Proxy;
 use Eloquent\Pops\Safe\SafeProxy;
+use Eloquent\Pops\UppercaseProxyObject;
 use OutputEscaper\OutputEscaperProxy;
 use PHPUnit\Framework\TestCase;
 

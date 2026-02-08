@@ -1,14 +1,14 @@
 name: CI (scheduled)
 on:
   schedule:
-  - cron: 0 14 * * 0 # Sunday 2PM UTC = Monday 12AM AEST
+  - cron: * 14 * * 0 # Every day 2PM UTC = Monday 12AM AEST
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.0', '8.1']
+        php: ['8.2', '8.3', '8.4','8.5']
     name: PHP ${{ matrix.php }}
     steps:
     - name: Checkout
@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: make vendor
     - name: Make
-      if: ${{ startsWith(matrix.php, '7.') }}
+      if: ${{ startsWith(matrix.php, '8.') }}
       run: make ci
     - name: Make
       if: ${{ startsWith(matrix.php, '8.') }}

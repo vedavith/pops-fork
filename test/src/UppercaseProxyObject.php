@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+namespace Eloquent\Pops;
+
 use Eloquent\Pops\ProxyObject;
 
 class UppercaseProxyObject extends ProxyObject

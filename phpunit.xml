@@ -1,12 +1,9 @@
 <phpunit
     bootstrap="vendor/autoload.php"
-    cacheResultFile="artifacts/test/phpunit.result.cache"
     colors="true"
     beStrictAboutChangesToGlobalState="true"
     beStrictAboutOutputDuringTests="true"
     beStrictAboutTestsThatDoNotTestAnything="true"
-    convertErrorsToExceptions="true"
-    verbose="true"
 >
     <testsuites>
         <testsuite name="main">
@@ -18,11 +15,13 @@
         <report>
             <text outputFile="php://stdout" showOnlySummary="true"/>
         </report>
+    </coverage>
 
+    <source>
         <include>
             <directory>src</directory>
         </include>
-    </coverage>
+    </source>
 
     <php>
         <ini name="error_reporting" value="-1"/>

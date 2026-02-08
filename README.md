@@ -1,16 +1,12 @@
-> # No longer maintained
->
-> This package is no longer maintained. See [this statement] for more info.
->
-> [this statement]: https://gist.github.com/ezzatron/713a548735febe3d76f8ca831bc895c0
-
 # Pops
 
 *PHP Object Proxy System.*
 
+This is a maintained fork of [eloquent/pops] originally created by Erin Millard.
+
 ## Installation and documentation
 
-* Available as [Composer] package [eloquent/pops].
+* Available as [Composer] package `vedavith/pops-fork` (maintained fork of `eloquent/pops`).
 * Requires PHP 8.2 or later.
 
 ## What is *Pops*?
