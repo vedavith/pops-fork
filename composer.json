@@ -29,9 +29,9 @@
         "eloquent/code-style": "^2",
         "errors/exceptions": "^0.2",
         "friendsofphp/php-cs-fixer": "^3",
-        "phpunit/phpunit": "^12",
+        "phpunit/phpunit": "^11.3 || ^12",
         "ext-mbstring": "*",
-        "phpunit/php-code-coverage": "^12"
+        "phpunit/php-code-coverage": "^11 || ^12"
     },
     "autoload": {
         "psr-4": {
