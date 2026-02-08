@@ -23,7 +23,7 @@ class OutputEscaperProxyPrimitive extends ProxyPrimitive
      *
      * @return string The HTML-secaped version of this primitive.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return htmlspecialchars(
             strval($this->popsValue()),

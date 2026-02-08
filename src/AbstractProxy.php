@@ -23,7 +23,7 @@ abstract class AbstractProxy implements ProxyInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    public function __construct($value)
+    public function __construct(mixed $value)
     {
         $this->setPopsValue($value);
     }
@@ -35,7 +35,7 @@ abstract class AbstractProxy implements ProxyInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    public function setPopsValue($value)
+    public function setPopsValue(mixed $value): void
     {
         $this->assertPopsValue($value);
 
@@ -47,7 +47,7 @@ abstract class AbstractProxy implements ProxyInterface
      *
      * @return mixed The wrapped value.
      */
-    public function popsValue()
+    public function popsValue(): mixed
     {
         return $this->value;
     }
@@ -60,7 +60,7 @@ abstract class AbstractProxy implements ProxyInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    abstract protected function assertPopsValue($value);
+    abstract protected function assertPopsValue(mixed $value): void;
 
-    private $value;
+    private mixed $value;
 }

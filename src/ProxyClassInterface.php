@@ -21,7 +21,7 @@ interface ProxyClassInterface extends ProxyInterface
      *
      * @return bool True if the wrapped class is recursively proxied.
      */
-    public function isPopsRecursive();
+    public function isPopsRecursive(): bool;
 
     /**
      * Call a static method on the proxied class with support for by-reference
@@ -32,7 +32,7 @@ interface ProxyClassInterface extends ProxyInterface
      *
      * @return mixed The result of the method call.
      */
-    public function popsCall($method, array &$arguments);
+    public function popsCall(string $method, array &$arguments): mixed;
 
     /**
      * Call a static method on the proxied class.
@@ -42,7 +42,7 @@ interface ProxyClassInterface extends ProxyInterface
      *
      * @return mixed The result of the method call.
      */
-    public function __call($method, array $arguments);
+    public function __call(string $method, array $arguments): mixed;
 
     /**
      * Set the value of a static property on the proxied class.
@@ -50,7 +50,7 @@ interface ProxyClassInterface extends ProxyInterface
      * @param string $property The name of the property to set.
      * @param mixed  $value    The new value.
      */
-    public function __set($property, $value);
+    public function __set(string $property, mixed $value): void;
 
     /**
      * Get the value of a static property on the proxied class.
@@ -59,7 +59,7 @@ interface ProxyClassInterface extends ProxyInterface
      *
      * @return mixed The value of the property.
      */
-    public function __get($property);
+    public function __get(string $property): mixed;
 
     /**
      * Returns true if the supplied static property exists on the proxied class.
@@ -68,12 +68,12 @@ interface ProxyClassInterface extends ProxyInterface
      *
      * @return bool True if the property exists.
      */
-    public function __isset($property);
+    public function __isset(string $property): bool;
 
     /**
      * Set the value of a static property on the proxied class to null.
      *
      * @param string $property The name of the property to set.
      */
-    public function __unset($property);
+    public function __unset(string $property): void;
 }

@@ -22,14 +22,12 @@ class Iterator extends Obj implements IteratorInterface
         $this->iterator = new ArrayIterator($this->values);
     }
 
-    #[\ReturnTypeWillChange]
-    public function current()
+    public function current(): mixed
     {
         return $this->iterator->current();
     }
 
-    #[\ReturnTypeWillChange]
-    public function key()
+    public function key(): mixed
     {
         return $this->iterator->key();
     }

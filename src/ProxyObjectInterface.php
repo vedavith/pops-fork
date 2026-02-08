@@ -33,7 +33,7 @@ interface ProxyObjectInterface extends
      *
      * @return mixed The result of the method call.
      */
-    public function popsCall($method, array &$arguments);
+    public function popsCall(string $method, array &$arguments): mixed;
 
     /**
      * Call a method on the wrapped object.
@@ -43,14 +43,14 @@ interface ProxyObjectInterface extends
      *
      * @return mixed The result of the method call.
      */
-    public function __call($method, array $arguments);
+    public function __call(string $method, array $arguments): mixed;
 
     /**
      * Invoke this object.
      *
      * @return mixed The result of invocation.
      */
-    public function __invoke();
+    public function __invoke(): mixed;
 
     /**
      * Set the value of a property on the wrapped object.
@@ -58,7 +58,7 @@ interface ProxyObjectInterface extends
      * @param string $property The property name.
      * @param mixed  $value    The new value.
      */
-    public function __set($property, $value);
+    public function __set(string $property, mixed $value): void;
 
     /**
      * Get the value of a property from the wrapped object.
@@ -67,7 +67,7 @@ interface ProxyObjectInterface extends
      *
      * @return mixed The property value.
      */
-    public function __get($property);
+    public function __get(string $property): mixed;
 
     /**
      * Returns true if the property exists on the wrapped object.
@@ -76,12 +76,12 @@ interface ProxyObjectInterface extends
      *
      * @return bool True if the property exists.
      */
-    public function __isset($property);
+    public function __isset(string $property): bool;
 
     /**
      * Unset a property from the wrapped object.
      *
      * @param string $property The property name.
      */
-    public function __unset($property);
+    public function __unset(string $property): void;
 }

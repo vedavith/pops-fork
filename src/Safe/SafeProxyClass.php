@@ -23,7 +23,7 @@ class SafeProxyClass extends ProxyClass implements SafeInterface
      *
      * @return string The proxy class.
      */
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\SafeProxy';
     }

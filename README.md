@@ -1,16 +1,13 @@
-> # No longer maintained
->
-> This package is no longer maintained. See [this statement] for more info.
->
-> [this statement]: https://gist.github.com/ezzatron/713a548735febe3d76f8ca831bc895c0
-
 # Pops
 
 *PHP Object Proxy System.*
 
+This is a maintained fork of [eloquent/pops] originally created by Erin Millard.
+
 ## Installation and documentation
 
-* Available as [Composer] package [eloquent/pops].
+* Available as [Composer] package `vedavith/pops-fork` (maintained fork of `eloquent/pops`).
+* Requires PHP 8.2 or later.
 
 ## What is *Pops*?
 
@@ -45,12 +42,12 @@ use Eloquent\Pops\ProxyObject;
 
 class UppercaseProxyObject extends ProxyObject
 {
-    public function popsCall($method, array &$arguments)
+    public function popsCall(string $method, array &$arguments): mixed
     {
         return strtoupper(parent::popsCall($method, $arguments));
     }
 
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         return strtoupper(parent::__get($property));
     }
@@ -148,7 +145,7 @@ class OutputEscaperProxyArray extends ProxyArray
      *
      * @return string The proxy class.
      */
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\OutputEscaperProxy';
     }
@@ -170,7 +167,7 @@ class OutputEscaperProxyClass extends ProxyClass
      *
      * @return string The proxy class.
      */
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\OutputEscaperProxy';
     }
@@ -192,7 +189,7 @@ class OutputEscaperProxyObject extends ProxyObject
      *
      * @return string The proxy class.
      */
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\OutputEscaperProxy';
     }
@@ -214,7 +211,7 @@ class OutputEscaperProxyPrimitive extends ProxyPrimitive
      *
      * @return string The HTML-secaped version of this primitive.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return htmlspecialchars(
             strval($this->popsValue()),

@@ -26,7 +26,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return mixed The result of the method call.
      */
-    public static function __callStatic($method, array $arguments)
+    public static function __callStatic(string $method, array $arguments): mixed
     {
         return static::popsProxySubValue(
             call_user_func_array(
@@ -42,7 +42,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return ProxyClass The non-static class proxy.
      */
-    public static function popsProxy()
+    public static function popsProxy(): ProxyClass
     {
         $originalClass = static::$popsStaticOriginalClass;
         if (null === $originalClass) {
@@ -73,10 +73,10 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      * @return string The class name used for the proxy class.
      */
     public static function popsGenerateStaticClassProxy(
-        $class,
-        $isRecursive = null,
-        $proxyClass = null
-    ) {
+        string $class,
+        ?bool $isRecursive = null,
+        ?string $proxyClass = null
+    ): string {
         if (null === $isRecursive) {
             $isRecursive = false;
         }
@@ -99,7 +99,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    public function __construct($class, $isRecursive = null)
+    public function __construct(string $class, ?bool $isRecursive = null)
     {
         if (null === $isRecursive) {
             $isRecursive = false;
@@ -118,7 +118,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return string The proxied class name.
      */
-    public function popsClass()
+    public function popsClass(): string
     {
         return $this->popsValue();
     }
@@ -128,7 +128,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return bool True if the wrapped class is recursively proxied.
      */
-    public function isPopsRecursive()
+    public function isPopsRecursive(): bool
     {
         return $this->isPopsRecursive;
     }
@@ -142,7 +142,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return mixed The result of the method call.
      */
-    public function popsCall($method, array &$arguments)
+    public function popsCall(string $method, array &$arguments): mixed
     {
         return static::popsProxySubValue(
             call_user_func_array(
@@ -161,7 +161,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return mixed The result of the method call.
      */
-    public function __call($method, array $arguments)
+    public function __call(string $method, array $arguments): mixed
     {
         return $this->popsCall($method, $arguments);
     }
@@ -172,7 +172,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      * @param string $property The name of the property to set.
      * @param mixed  $value    The new value.
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         $class = $this->popsValue();
         $class::$$property = $value;
@@ -185,7 +185,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return mixed The value of the property.
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $class = $this->popsValue();
 
@@ -202,7 +202,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return bool True if the property exists.
      */
-    public function __isset($property)
+    public function __isset(string $property): bool
     {
         $class = $this->popsValue();
 
@@ -214,7 +214,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @param string $property The name of the property to set.
      */
-    public function __unset($property)
+    public function __unset(string $property): void
     {
         $class = $this->popsValue();
 
@@ -226,7 +226,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return string The string representation.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->popsValue();
     }
@@ -236,7 +236,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return string The proxy class.
      */
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\Proxy';
     }
@@ -249,7 +249,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return mixed The proxied value, or the untouched value.
      */
-    protected static function popsProxySubValue($value, $isRecursive)
+    protected static function popsProxySubValue(mixed $value, bool $isRecursive): mixed
     {
         if ($isRecursive) {
             $popsProxyClass = static::popsProxyClass();
@@ -263,17 +263,17 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
     /**
      * Generate a static class proxy definition.
      *
-     * @param string      $class       The name of the class to proxy.
+     * @param string      $originalClass The name of the class to proxy.
      * @param bool        $isRecursive True if the proxy should be recursive.
      * @param string|null &$proxyClass The class name to use for the proxy class.
      *
      * @return string The proxy class definition.
      */
     protected static function popsStaticClassProxyDefinition(
-        $originalClass,
-        $isRecursive,
-        &$proxyClass
-    ) {
+        string $originalClass,
+        bool $isRecursive,
+        ?string &$proxyClass
+    ): string {
         $proxyClass = static::popsStaticClassProxyDefinitionProxyClass(
             $originalClass,
             $proxyClass
@@ -298,9 +298,9 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      * @return string The proxy class name.
      */
     protected static function popsStaticClassProxyDefinitionProxyClass(
-        $originalClass,
-        $proxyClass
-    ) {
+        string $originalClass,
+        ?string $proxyClass
+    ): string {
         if (null === $proxyClass) {
             $originalClassParts = explode('\\', $originalClass);
             $proxyClassPrefix = array_pop($originalClassParts) . '_Pops_';
@@ -325,7 +325,7 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @return string The static class proxy class header.
      */
-    protected static function popsStaticClassProxyDefinitionHeader($proxyClass)
+    protected static function popsStaticClassProxyDefinitionHeader(string $proxyClass): string
     {
         $proxyClassParts = explode('\\', $proxyClass);
         $proxyClass = array_pop($proxyClassParts);
@@ -356,12 +356,12 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      * @return string The static class proxy class body.
      */
     protected static function popsStaticClassProxyDefinitionBody(
-        $originalClass,
-        $isRecursive
-    ) {
+        string $originalClass,
+        bool $isRecursive
+    ): string {
         return sprintf(
-            'protected static $popsStaticOriginalClass = %s; ' .
-                'protected static $isPopsStaticRecursive = %s;',
+            'protected static ?string $popsStaticOriginalClass = %s; ' .
+                'protected static bool $isPopsStaticRecursive = %s;',
             var_export($originalClass, true),
             var_export($isRecursive, true)
         );
@@ -375,15 +375,15 @@ class ProxyClass extends AbstractProxy implements ProxyClassInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    protected function assertPopsValue($value)
+    protected function assertPopsValue(mixed $value): void
     {
         if (!class_exists($value)) {
             throw new Exception\InvalidTypeException($value, 'class name');
         }
     }
 
-    protected static $popsStaticOriginalClass;
-    protected static $isPopsStaticRecursive;
-    private static $popsStaticProxies = [];
-    private $isPopsRecursive;
+    protected static ?string $popsStaticOriginalClass = null;
+    protected static bool $isPopsStaticRecursive = false;
+    private static array $popsStaticProxies = [];
+    private bool $isPopsRecursive;
 }

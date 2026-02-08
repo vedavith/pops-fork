@@ -15,7 +15,7 @@ use Eloquent\Pops\ProxyPrimitive;
 
 class UppercaseProxyPrimitive extends ProxyPrimitive
 {
-    public function __toString()
+    public function __toString(): string
     {
         return mb_strtoupper(strval($this->popsValue()));
     }

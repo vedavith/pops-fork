@@ -29,7 +29,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return object The wrapped object.
      */
-    public function popsObject()
+    public function popsObject(): object
     {
         return $this->popsValue();
     }
@@ -43,7 +43,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return mixed The result of the method call.
      */
-    public function popsCall($method, array &$arguments)
+    public function popsCall(string $method, array &$arguments): mixed
     {
         return $this->popsProxySubValue(
             call_user_func_array([$this->popsValue(), $method], $arguments)
@@ -58,7 +58,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return mixed The result of the method call.
      */
-    public function __call($method, array $arguments)
+    public function __call(string $method, array $arguments): mixed
     {
         return $this->popsCall($method, $arguments);
     }
@@ -68,7 +68,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return mixed The result of invocation.
      */
-    public function __invoke()
+    public function __invoke(): mixed
     {
         return $this->__call('__invoke', func_get_args());
     }
@@ -79,7 +79,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      * @param string $property The property name.
      * @param mixed  $value    The new value.
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         $this->popsValue()->$property = $value;
     }
@@ -91,7 +91,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return mixed The property value.
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         return $this->popsProxySubValue($this->popsValue()->$property);
     }
@@ -103,7 +103,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return bool True if the property exists.
      */
-    public function __isset($property)
+    public function __isset(string $property): bool
     {
         return isset($this->popsValue()->$property);
     }
@@ -113,7 +113,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @param string $property The property name.
      */
-    public function __unset($property)
+    public function __unset(string $property): void
     {
         unset($this->popsValue()->$property);
     }
@@ -124,7 +124,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      * @param string $key   The key to set.
      * @param mixed  $value The new value.
      */
-    public function offsetSet($key, $value): void
+    public function offsetSet(mixed $key, mixed $value): void
     {
         $this->__call('offsetSet', func_get_args());
     }
@@ -136,8 +136,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return mixed The value.
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($key)
+    public function offsetGet(mixed $key): mixed
     {
         return $this->__call('offsetGet', func_get_args());
     }
@@ -150,7 +149,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return bool True if the key exists.
      */
-    public function offsetExists($key): bool
+    public function offsetExists(mixed $key): bool
     {
         return $this->__call('offsetExists', func_get_args());
     }
@@ -160,7 +159,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @param string $key The key to remove.
      */
-    public function offsetUnset($key): void
+    public function offsetUnset(mixed $key): void
     {
         $this->__call('offsetUnset', func_get_args());
     }
@@ -180,7 +179,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return string The string representation.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return strval($this->__call('__toString', []));
     }
@@ -190,7 +189,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return string The proxy class.
      */
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\Proxy';
     }
@@ -203,7 +202,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    protected function assertPopsValue($value)
+    protected function assertPopsValue(mixed $value): void
     {
         if (!is_object($value)) {
             throw new Exception\InvalidTypeException($value, 'object');
@@ -215,7 +214,7 @@ class ProxyObject extends AbstractTraversableProxy implements
      *
      * @return Iterator An iterator for the wrapped object.
      */
-    protected function popsCreateInnerIterator()
+    protected function popsCreateInnerIterator(): Iterator
     {
         if ($this->popsValue() instanceof Iterator) {
             $iterator = $this->popsValue();
