@@ -15,23 +15,22 @@ use ArrayAccess as ArrayAccessInterface;
 
 class ArrayAccess extends Obj implements ArrayAccessInterface
 {
-    public function offsetSet($property, $value): void
+    public function offsetSet(mixed $property, mixed $value): void
     {
         $this->values[$property] = $value;
     }
 
-    #[\ReturnTypeWillChange]
-    public function offsetGet($property)
+    public function offsetGet(mixed $property): mixed
     {
         return $this->values[$property];
     }
 
-    public function offsetExists($property): bool
+    public function offsetExists(mixed $property): bool
     {
         return array_key_exists($property, $this->values);
     }
 
-    public function offsetUnset($property): void
+    public function offsetUnset(mixed $property): void
     {
         unset($this->values[$property]);
     }

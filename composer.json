@@ -12,13 +12,14 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8"
+        "php": "^8.2"
     },
     "require-dev": {
         "eloquent/code-style": "^2",
         "errors/exceptions": "^0.2",
         "friendsofphp/php-cs-fixer": "^3",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^9",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

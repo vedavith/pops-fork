@@ -15,7 +15,7 @@ use Eloquent\Pops\ProxyClass;
 
 class UppercaseProxyClass extends ProxyClass
 {
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\UppercaseProxy';
     }

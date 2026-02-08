@@ -27,7 +27,7 @@ abstract class AbstractTraversableProxy extends AbstractProxy implements
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    public function __construct($value, $isRecursive = null)
+    public function __construct(mixed $value, ?bool $isRecursive = null)
     {
         if (null === $isRecursive) {
             $isRecursive = false;
@@ -43,7 +43,7 @@ abstract class AbstractTraversableProxy extends AbstractProxy implements
      *
      * @return bool True if the wrapped value is recursively proxied.
      */
-    public function isPopsRecursive()
+    public function isPopsRecursive(): bool
     {
         return $this->isPopsRecursive;
     }
@@ -53,8 +53,7 @@ abstract class AbstractTraversableProxy extends AbstractProxy implements
      *
      * @return mixed The current value.
      */
-    #[\ReturnTypeWillChange]
-    public function current()
+    public function current(): mixed
     {
         return $this->popsProxySubValue($this->popsInnerIterator()->current());
     }
@@ -64,8 +63,7 @@ abstract class AbstractTraversableProxy extends AbstractProxy implements
      *
      * @return mixed The current key.
      */
-    #[\ReturnTypeWillChange]
-    public function key()
+    public function key(): mixed
     {
         return $this->popsInnerIterator()->key();
     }
@@ -103,7 +101,7 @@ abstract class AbstractTraversableProxy extends AbstractProxy implements
      *
      * @return mixed The proxied value, or the untouched value.
      */
-    protected function popsProxySubValue($value)
+    protected function popsProxySubValue(mixed $value): mixed
     {
         if ($this->isPopsRecursive()) {
             $popsClass = static::popsProxyClass();
@@ -119,7 +117,7 @@ abstract class AbstractTraversableProxy extends AbstractProxy implements
      *
      * @return Iterator An iterator for the wrapped object.
      */
-    protected function popsInnerIterator()
+    protected function popsInnerIterator(): Iterator
     {
         if (null === $this->popsInnerIterator) {
             $this->popsInnerIterator = $this->popsCreateInnerIterator();
@@ -133,8 +131,8 @@ abstract class AbstractTraversableProxy extends AbstractProxy implements
      *
      * @return Iterator An iterator for the wrapped object.
      */
-    abstract protected function popsCreateInnerIterator();
+    abstract protected function popsCreateInnerIterator(): Iterator;
 
-    private $isPopsRecursive;
-    private $popsInnerIterator;
+    private bool $isPopsRecursive;
+    private ?Iterator $popsInnerIterator = null;
 }

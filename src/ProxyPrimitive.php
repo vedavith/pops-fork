@@ -24,7 +24,7 @@ class ProxyPrimitive extends AbstractProxy implements ProxyPrimitiveInterface
      *
      * @return scalar|null The wrapped value.
      */
-    public function popsPrimitive()
+    public function popsPrimitive(): mixed
     {
         return $this->popsValue();
     }
@@ -34,7 +34,7 @@ class ProxyPrimitive extends AbstractProxy implements ProxyPrimitiveInterface
      *
      * @return string The string representation.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return strval($this->popsValue());
     }
@@ -47,7 +47,7 @@ class ProxyPrimitive extends AbstractProxy implements ProxyPrimitiveInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    protected function assertPopsValue($value)
+    protected function assertPopsValue(mixed $value): void
     {
         if (!is_scalar($value)) {
             throw new Exception\InvalidTypeException($value, 'scalar|null');

@@ -27,7 +27,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @return array The wrapped array.
      */
-    public function popsArray()
+    public function popsArray(): array
     {
         return $this->popsValue();
     }
@@ -38,7 +38,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      * @param int|string $index The index to set.
      * @param mixed      $value The new value.
      */
-    public function offsetSet($index, $value): void
+    public function offsetSet(mixed $index, mixed $value): void
     {
         $array = $this->popsValue();
         $array[$index] = $value;
@@ -53,8 +53,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @return mixed The value.
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($index)
+    public function offsetGet(mixed $index): mixed
     {
         $array = $this->popsValue();
 
@@ -68,7 +67,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @return bool True if the index exists.
      */
-    public function offsetExists($index): bool
+    public function offsetExists(mixed $index): bool
     {
         $array = $this->popsValue();
 
@@ -80,7 +79,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @param int|string $index The index to remove.
      */
-    public function offsetUnset($index): void
+    public function offsetUnset(mixed $index): void
     {
         $array = $this->popsValue();
         unset($array[$index]);
@@ -103,7 +102,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @return string The string representation.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return strval($this->popsProxySubValue(strval($this->popsValue())));
     }
@@ -113,7 +112,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @return string The proxy class.
      */
-    protected static function popsProxyClass()
+    protected static function popsProxyClass(): string
     {
         return __NAMESPACE__ . '\Proxy';
     }
@@ -126,7 +125,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    protected function assertPopsValue($value)
+    protected function assertPopsValue(mixed $value): void
     {
         if (!is_array($value)) {
             throw new Exception\InvalidTypeException($value, 'array');
@@ -138,7 +137,7 @@ class ProxyArray extends AbstractTraversableProxy implements ProxyArrayInterface
      *
      * @return Iterator An iterator for the wrapped object.
      */
-    protected function popsCreateInnerIterator()
+    protected function popsCreateInnerIterator(): Iterator
     {
         return new ArrayIterator($this->popsValue());
     }

@@ -13,12 +13,12 @@ use Eloquent\Pops\ProxyObject;
 
 class UppercaseProxyObject extends ProxyObject
 {
-    public function popsCall($method, array &$arguments)
+    public function popsCall(string $method, array &$arguments): mixed
     {
         return strtoupper(parent::popsCall($method, $arguments));
     }
 
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         return strtoupper(parent::__get($property));
     }

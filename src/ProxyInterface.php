@@ -23,19 +23,19 @@ interface ProxyInterface
      *
      * @throws Exception\InvalidTypeException If the supplied value is not the correct type.
      */
-    public function setPopsValue($value);
+    public function setPopsValue(mixed $value): void;
 
     /**
      * Get the wrapped value.
      *
      * @return mixed The wrapped value.
      */
-    public function popsValue();
+    public function popsValue(): mixed;
 
     /**
      * Get the string representation of this value.
      *
      * @return string The string representation.
      */
-    public function __toString();
+    public function __toString(): string;
 }
