@@ -23,12 +23,10 @@ jobs:
       run: php -v
     - name: Install dependencies
       run: composer install --no-interaction --prefer-dist
-    - name: Make
-      if: ${{ startsWith(matrix.php, '8.') }}
-      run: make ci
-    - name: Make
-      if: ${{ startsWith(matrix.php, '8.') }}
-      run: make artifacts/coverage/phpunit/clover.xml
+    - name: Run tests with coverage
+      run: |
+        mkdir -p artifacts/test artifacts/coverage/phpunit
+        vendor/bin/phpunit -c phpunit.xml --coverage-clover artifacts/coverage/phpunit/clover.xml
     - name: Publish coverage
       if: success()
       uses: codecov/codecov-action@v4
